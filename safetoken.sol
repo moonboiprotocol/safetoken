@@ -71,15 +71,15 @@ abstract contract Tokenomics {
     
     // --------------------- Token Settings ------------------- //
 
-    string internal constant NAME = "SafeToken.V1Beta";
-    string internal constant SYMBOL = "STKN.V1Beta";
+    string internal constant NAME = "Moon Boi";
+    string internal constant SYMBOL = "MOBO";
     
     uint16 internal constant FEES_DIVISOR = 10**3;
     uint8 internal constant DECIMALS = 6;
     uint256 internal constant ZEROES = 10**DECIMALS;
     
     uint256 private constant MAX = ~uint256(0);
-    uint256 internal constant TOTAL_SUPPLY = 299792458 * ZEROES;
+    uint256 internal constant TOTAL_SUPPLY = 1000000000 * ZEROES;
     uint256 internal _reflectedSupply = (MAX - (MAX % TOTAL_SUPPLY));
 
     /**
@@ -90,7 +90,7 @@ abstract contract Tokenomics {
      * NOTE: set the value to `TOTAL_SUPPLY` to have an unlimited max, i.e.
      * `maxTransactionAmount = TOTAL_SUPPLY;`
      */
-    uint256 internal constant maxTransactionAmount = TOTAL_SUPPLY / 100; // 1% of the total supply
+    uint256 internal constant maxTransactionAmount = TOTAL_SUPPLY / 200; // 1% of the total supply
     
     /**
      * @dev Set the maximum allowed balance in a wallet.
@@ -102,7 +102,7 @@ abstract contract Tokenomics {
      * IMPORTANT: This value MUST be greater than `numberOfTokensToSwapToLiquidity` set below,
      * otherwise the liquidity swap will never be executed
      */
-    uint256 internal constant maxWalletBalance = TOTAL_SUPPLY / 50; // 2% of the total supply
+    uint256 internal constant maxWalletBalance = TOTAL_SUPPLY / 100; // 2% of the total supply
     
     /**
      * @dev Set the number of tokens to swap and add to liquidity. 
@@ -125,8 +125,8 @@ abstract contract Tokenomics {
      * @dev To add/edit/remove fees scroll down to the `addFees` function below
      */
 
-    address internal charityAddress = 0x3De92b2308f4acBA823fA58A0C02633380d570eE;
-    address internal marketingAddress = 0x65b4eF486971839517d6FF08Af90fD69F26FbB1B;
+    address internal charityAddress = 0x0000000000000000000000000000000299792458;
+    address internal marketingAddress = 0x0000000000000000000000000000000299792458;
 
     /**
      * @dev You can change the value of the burn address to pretty much anything
@@ -163,14 +163,7 @@ abstract contract Tokenomics {
      */
     address internal burnAddress = 0x0000000000000000000000000000000299792458;
 
-    /**
-     * @dev You can disable this but if you feel generous I'd appreciate the 0.1%
-     * donation for rewriting Safemoon and making everyone's life a little easier
-     *
-     * If you keep this tip enabled, let me know in Discord: https://discord.gg/zn86MDCQcM
-     * and you'll be added to the partners section to promote your token. 
-     */
-    address internal tipToTheDev = 0x2d67D0A35192EB8cE9DF4988686553360A6E424f;
+    address internal tipToTheDev = 0x0000000000000000000000000000000299792458;
 
     enum FeeType { Antiwhale, Burn, Liquidity, Rfi, External, ExternalToETH }
     struct Fee {
@@ -204,15 +197,8 @@ abstract contract Tokenomics {
          * The value of fees is given in part per 1000 (based on the value of FEES_DIVISOR),
          * e.g. for 5% use 50, for 3.5% use 35, etc. 
          */ 
-        _addFee(FeeType.Rfi, 40, address(this) ); 
-
-        _addFee(FeeType.Burn, 10, burnAddress );
+        _addFee(FeeType.Rfi, 50, address(this) ); 
         _addFee(FeeType.Liquidity, 50, address(this) );
-        _addFee(FeeType.External, 20, charityAddress );
-        _addFee(FeeType.External, 30, marketingAddress );
-
-        // 0.1% as a tip to the dev; feel free to remove this!
-        _addFee(FeeType.ExternalToETH, 1, tipToTheDev );
     }
 
     function _getFeesCount() internal view returns (uint256){ return fees.length; }
